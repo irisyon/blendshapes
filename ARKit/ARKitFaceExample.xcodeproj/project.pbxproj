@@ -18,6 +18,7 @@
 		3929C4931E89EC2C00E00B60 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3929C4921E89EC2C00E00B60 /* Assets.xcassets */; };
 		3929C49F1E89EE4400E00B60 /* Models.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 3929C49E1E89EE4400E00B60 /* Models.scnassets */; };
 		39D8DC1B1E8ADAE600386B05 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 39D8DC1A1E8ADAE600386B05 /* LaunchScreen.storyboard */; };
+		B73CA7DE218E3DF60092E4C4 /* FaceVisualization.swift in Sources */ = {isa = PBXBuildFile; fileRef = B73CA7DD218E3DF60092E4C4 /* FaceVisualization.swift */; };
 		C81DA0C61F4CC79A002AF1DA /* FaceOcclusionOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = C81DA0C51F4CC79A002AF1DA /* FaceOcclusionOverlay.swift */; };
 		C8904E551F4CFD000089E530 /* VirtualContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8904E541F4CFD000089E530 /* VirtualContent.swift */; };
 		C8904E571F4CFD730089E530 /* TexturedFace.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8904E561F4CFD730089E530 /* TexturedFace.swift */; };
@@ -41,6 +42,7 @@
 		39D8DC1A1E8ADAE600386B05 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		74CA295074CA28A000000001 /* SampleCode.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = SampleCode.xcconfig; path = Configuration/SampleCode.xcconfig; sourceTree = "<group>"; };
 		772218A0772287A000000001 /* LICENSE.txt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
+		B73CA7DD218E3DF60092E4C4 /* FaceVisualization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FaceVisualization.swift; sourceTree = "<group>"; };
 		C81DA0C51F4CC79A002AF1DA /* FaceOcclusionOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceOcclusionOverlay.swift; sourceTree = "<group>"; };
 		C8904E541F4CFD000089E530 /* VirtualContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualContent.swift; sourceTree = "<group>"; };
 		C8904E561F4CFD730089E530 /* TexturedFace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TexturedFace.swift; sourceTree = "<group>"; };
@@ -95,6 +97,7 @@
 			children = (
 				3929C48B1E89EC2C00E00B60 /* AppDelegate.swift */,
 				3929C48D1E89EC2C00E00B60 /* ViewController.swift */,
+				B73CA7DD218E3DF60092E4C4 /* FaceVisualization.swift */,
 				C8904E581F4CFE380089E530 /* Face Overlay Content */,
 				11EE23D1213479CF00C0DEAD /* Utilities.swift */,
 				1488324C1EFC3ED00043E0AB /* Resources */,
@@ -212,6 +215,7 @@
 				11012C161F3D07BC0099F3A4 /* BlendShapeCharacter.swift in Sources */,
 				3929C48E1E89EC2C00E00B60 /* ViewController.swift in Sources */,
 				3929C48C1E89EC2C00E00B60 /* AppDelegate.swift in Sources */,
+				B73CA7DE218E3DF60092E4C4 /* FaceVisualization.swift in Sources */,
 				C8904E551F4CFD000089E530 /* VirtualContent.swift in Sources */,
 				11764D981FB1344900D90F75 /* VideoTexturedFace.swift in Sources */,
 				11EE23D2213479CF00C0DEAD /* Utilities.swift in Sources */,

@@ -46,6 +46,5 @@ class BlendShapeCharacter: NSObject, VirtualContentController {
         eyeLeftNode.scale.z = 1 - eyeBlinkLeft
         eyeRightNode.scale.z = 1 - eyeBlinkRight
         jawNode.position.y = originalJawY - jawHeight * jawOpen
-        print(eyeBlinkLeft)
     }
 }
