@@ -111,6 +111,11 @@ class ViewController: UIViewController, ARSessionDelegate {
         alertController.addAction(restartAction)
         present(alertController, animated: true, completion: nil)
     }
+    
+    @IBAction func GetData(_ sender: UIButton) {
+        UserData().exportData()
+    }
+    
 }
 
 extension ViewController: UITabBarDelegate {

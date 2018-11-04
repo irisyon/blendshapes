@@ -21,6 +21,7 @@
 		C81DA0C61F4CC79A002AF1DA /* FaceOcclusionOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = C81DA0C51F4CC79A002AF1DA /* FaceOcclusionOverlay.swift */; };
 		C8904E551F4CFD000089E530 /* VirtualContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8904E541F4CFD000089E530 /* VirtualContent.swift */; };
 		C8904E571F4CFD730089E530 /* TexturedFace.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8904E561F4CFD730089E530 /* TexturedFace.swift */; };
+		DD02911E218E6EF8003F24BC /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD02911D218E6EF8003F24BC /* UserData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		C81DA0C51F4CC79A002AF1DA /* FaceOcclusionOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceOcclusionOverlay.swift; sourceTree = "<group>"; };
 		C8904E541F4CFD000089E530 /* VirtualContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualContent.swift; sourceTree = "<group>"; };
 		C8904E561F4CFD730089E530 /* TexturedFace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TexturedFace.swift; sourceTree = "<group>"; };
+		DD02911D218E6EF8003F24BC /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +129,7 @@
 				C81DA0C51F4CC79A002AF1DA /* FaceOcclusionOverlay.swift */,
 				11764D971FB1344900D90F75 /* VideoTexturedFace.swift */,
 				11012C151F3D07BC0099F3A4 /* BlendShapeCharacter.swift */,
+				DD02911D218E6EF8003F24BC /* UserData.swift */,
 			);
 			path = "Face Overlay Content";
 			sourceTree = "<group>";
@@ -215,6 +218,7 @@
 				C8904E551F4CFD000089E530 /* VirtualContent.swift in Sources */,
 				11764D981FB1344900D90F75 /* VideoTexturedFace.swift in Sources */,
 				11EE23D2213479CF00C0DEAD /* Utilities.swift in Sources */,
+				DD02911E218E6EF8003F24BC /* UserData.swift in Sources */,
 				C8904E571F4CFD730089E530 /* TexturedFace.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
