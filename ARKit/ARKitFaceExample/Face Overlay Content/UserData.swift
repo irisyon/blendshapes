@@ -57,24 +57,25 @@ class UserData: NSObject, VirtualContentController {
     }
     
     func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
-        print("renderer")
-        
-        guard #available(iOS 12.0, *), let faceAnchor = anchor as? ARFaceAnchor
+        guard #available(iOS 12.0, *),
+            let faceAnchor = anchor as? ARFaceAnchor,
+            let faceGeometry = node.geometry as? ARSCNFaceGeometry
             else { return }
         
         rightEyeNode.simdTransform = faceAnchor.rightEyeTransform
         leftEyeNode.simdTransform = faceAnchor.leftEyeTransform
-        let blendShapes = faceAnchor.blendShapes
-        guard let eyeBlinkLeft = blendShapes[.eyeBlinkLeft] as? Float,
-            let eyeBlinkRight = blendShapes[.eyeBlinkRight] as? Float,
-            let jawOpen = blendShapes[.jawOpen] as? Float
-            else { return }
-        eyeLeftNode.scale.z = 1 - eyeBlinkLeft
-        eyeRightNode.scale.z = 1 - eyeBlinkRight
-        jawNode.position.y = originalJawY - jawHeight * jawOpen
+        faceGeometry.update(from: faceAnchor.geometry)
+        //        let blendShapes = faceAnchor.blendShapes
+        //        guard let eyeBlinkLeft = blendShapes[.eyeBlinkLeft] as? Float,
+        //            let eyeBlinkRight = blendShapes[.eyeBlinkRight] as? Float,
+        //            let jawOpen = blendShapes[.jawOpen] as? Float
+        //            else { return }
+        //        eyeLeftNode.scale.z = 1 - eyeBlinkLeft
+        //        eyeRightNode.scale.z = 1 - eyeBlinkRight
+        //        jawNode.position.y = originalJawY - jawHeight * jawOpen
         // TODO: Add in weights manually for face & eye transformation, orientation
-        for (key, weight) in faceAnchor.blendShapes {
-            Output += ", " + weight.stringValue
+        for (_, weight) in faceAnchor.blendShapes {
+            Output += "," + weight.stringValue
         }
         Output += "\n"
     }
