@@ -14,6 +14,8 @@ class UserData: NSObject, VirtualContentController {
     
     var contentNode: SCNNode?
     var Output = ""
+    var presetKeys: [String] = []
+    var BlendShapeKeyOrdering: [ARFaceAnchor.BlendShapeLocation] = []
     
     // Load multiple copies of the axis origin visualization for the transforms this class visualizes.
     lazy var rightEyeNode = SCNReferenceNode(named: "coordinateOrigin")
@@ -47,18 +49,22 @@ class UserData: NSObject, VirtualContentController {
         // Add content for eye tracking in iOS 12.
         self.addEyeTransformNodes()
         // Create labels for CSV output
-        Output = "face_position, face_orientation, L_eye_orientation, R_eye_orientation"
+        //        Output = "face_position_x,face_position_y,face_position_z,"
+        //            + "face_orientation_x,face_orientation_y,face_orientation_z,"
+        //            + "L_eye_orientation_x,L_eye_orientation_y,L_eye_orientation_z,"
+        //            + "R_eye_orientation_x,R_eye_orientation_y,R_eye_orientation_z"
+        //        presetKeys = Output.components(separatedBy: ",")
         for (key, _) in faceAnchor.blendShapes {
-            Output += ", " + key.rawValue
+            Output += "," + key.rawValue
+            BlendShapeKeyOrdering.append(key)
         }
+        Output.remove(at: Output.startIndex)
         Output += "\n"
-        print(contentNode)
         return contentNode
     }
     
     func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
-        guard #available(iOS 12.0, *),
-            let faceAnchor = anchor as? ARFaceAnchor,
+        guard let faceAnchor = anchor as? ARFaceAnchor,
             let faceGeometry = node.geometry as? ARSCNFaceGeometry
             else { return }
         
@@ -74,12 +80,13 @@ class UserData: NSObject, VirtualContentController {
         //        eyeRightNode.scale.z = 1 - eyeBlinkRight
         //        jawNode.position.y = originalJawY - jawHeight * jawOpen
         // TODO: Add in weights manually for face & eye transformation, orientation
-        for (_, weight) in faceAnchor.blendShapes {
-            Output += "," + weight.stringValue
+        var tempOut = ""
+        for key in BlendShapeKeyOrdering {
+            tempOut += "," + (faceAnchor.blendShapes[key]?.stringValue)!
         }
-        Output += "\n"
+        tempOut.remove(at: tempOut.startIndex)
+        Output += tempOut + "\n"
     }
-    
     func addEyeTransformNodes() {
         guard #available(iOS 12.0, *), let anchorNode = contentNode else { return }
         
@@ -92,26 +99,49 @@ class UserData: NSObject, VirtualContentController {
     }
 
     
+    
+  
+    
     func exportData() {
-        print("here")
         
         let fileName = "data.csv"
-        let path = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(fileName)
+        //let path = NSURL(fileURLWithPath: .documentDirectory).appendingPathComponent(fileName)
         
-        var csvText = "Date,Task,Time Started,Time Ended\n"
+        
+        
+        var csvText = ""
 
         
-        let newLine = "\(1),\(2),\(3),\(4)\n"
+        let newLine = Output
         csvText.append(newLine)
+        //print(Output)
         
         do {
-            try csvText.write(to: path!, atomically: true, encoding: String.Encoding.utf8)
-            
+            let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+            let documentsDirectory = paths[0]
+            //let fileManager = FileManager.default
+            /*
+            let path = try fileManager.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+            let fileURL = path.appendingPathComponent(fileName)
+           // let documentDirectoryURL =  try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+
+            try csvText.write(to: fileURL, atomically: true, encoding: .utf8)*/
+            //try csvText.write(to: path!, atomically: true, encoding: String.Encoding.utf8)
+          // print(fileURL)
+          /*  var path = try! FileManager.default.url(for: .documentDirectory, in: .UserDomainMask, appropriateFor: nil, create: false)
+                .appendingPathComponent("cardsFile.csv")
+
+            print(path)
+*/
+            let documentsURL = FileManager.default.urls(for: .downloadsDirectory, in: .userDomainMask).first!
+            let fileURL = documentsURL.appendingPathComponent(fileName)
+            try csvText.write(to: fileURL, atomically: true, encoding: .utf8)
+            //print(documentsDirectory)
         } catch {
             print("Failed to create file")
             print("\(error)")
         }
-        print(path ?? "not found")
+        //print(path ?? "not found")
         
     }
    

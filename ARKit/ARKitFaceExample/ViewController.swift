@@ -15,6 +15,9 @@ class ViewController: UIViewController, ARSessionDelegate {
 
     @IBOutlet var sceneView: ARSCNView!
     @IBOutlet weak var tabBar: UITabBar!
+    
+    var requestRecord = false;
+    var currentData = UserData()
 
     // MARK: Properties
     /*
@@ -47,7 +50,15 @@ class ViewController: UIViewController, ARSessionDelegate {
         }
     }*/
     
-    var selectedContentController: VirtualContentController { return UserData() }
+    //var selectedContentController: VirtualContentController { return UserData() }
+    
+    var selectedContentController: VirtualContentController {
+        if (!requestRecord) {
+            currentData = UserData()
+        }
+        return currentData
+        
+    }
  
     var currentFaceAnchor: ARFaceAnchor?
     
@@ -56,13 +67,12 @@ class ViewController: UIViewController, ARSessionDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        sceneView.delegate = self
-            //UserData() as? ARSCNViewDelegate
+        sceneView.delegate = selectedContentController
         sceneView.session.delegate = self
         sceneView.automaticallyUpdatesLighting = true
         
         // Set the initial face content.
-        tabBar.selectedItem = tabBar.items!.first!
+      //  tabBar.selectedItem = tabBar.items!.first!
       //  selectedVirtualContent = VirtualContentType(rawValue: tabBar.selectedItem!.tag)
     }
 
@@ -117,7 +127,11 @@ class ViewController: UIViewController, ARSessionDelegate {
     }
     
     @IBAction func GetData(_ sender: UIButton) {
-        UserData().exportData()
+        if (requestRecord) {
+            currentData.exportData()
+        }
+        requestRecord = !requestRecord
+       
     }
     
 }
