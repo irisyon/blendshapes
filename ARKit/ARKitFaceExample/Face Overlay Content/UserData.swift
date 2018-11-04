@@ -46,20 +46,23 @@ class UserData: NSObject {
         // Add content for eye tracking in iOS 12.
         self.addEyeTransformNodes()
         // Create labels for CSV output
-        Output = "face_position, face_orientation, L_eye_orientation, R_eye_orientation"
+        Output = "face_position_x,face_position_y,face_position_z,face_orientation_x, face_orientation_y,face_orientation_z,L_eye_orientation_x,L_eye_orientation_y,L_eye_orientation_z,R_eye_orientation_x,R_eye_orientation_y,R_eye_orientation_z"
         for (key, _) in faceAnchor.blendShapes {
-            Output += ", " + key.rawValue;
+            Output += "," + key.rawValue;
         }
         Output += "\n"
         return contentNode
     }
     
     func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
-        guard #available(iOS 12.0, *), let faceAnchor = anchor as? ARFaceAnchor
+        guard #available(iOS 12.0, *),
+            let faceAnchor = anchor as? ARFaceAnchor,
+            let faceGeometry = node.geometry as? ARSCNFaceGeometry
             else { return }
         
         rightEyeNode.simdTransform = faceAnchor.rightEyeTransform
         leftEyeNode.simdTransform = faceAnchor.leftEyeTransform
+        faceGeometry.update(from: faceAnchor.geometry)
 //        let blendShapes = faceAnchor.blendShapes
 //        guard let eyeBlinkLeft = blendShapes[.eyeBlinkLeft] as? Float,
 //            let eyeBlinkRight = blendShapes[.eyeBlinkRight] as? Float,
@@ -70,7 +73,7 @@ class UserData: NSObject {
 //        jawNode.position.y = originalJawY - jawHeight * jawOpen
         // TODO: Add in weights manually for face & eye transformation, orientation
         for (_, weight) in faceAnchor.blendShapes {
-            Output += ", " + weight.stringValue
+            Output += "," + weight.stringValue
         }
         Output += "\n"
     }
