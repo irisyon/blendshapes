@@ -11,6 +11,7 @@ import SceneKit
 class FaceVisualization: NSObject, VirtualContentController {
     
     var contentNode: SCNNode?
+    var Output = ""
     
     // Load multiple copies of the axis origin visualization for the transforms this class visualizes.
     lazy var rightEyeNode = SCNReferenceNode(named: "coordinateOrigin")
@@ -28,18 +29,30 @@ class FaceVisualization: NSObject, VirtualContentController {
         return max.y - min.y
     }()
     
-    /// - Tag: ARNodeTracking
+    /// - Tag: ARTracking
     func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
-        // This class adds AR content only for face anchors.
-        guard anchor is ARFaceAnchor else { return nil }
+       guard let sceneView = renderer as? ARSCNView,
+            anchor is ARFaceAnchor else { return nil }
         
-        // Load an asset from the app bundle to provide visual content for the anchor.
-        contentNode = SCNReferenceNode(named: "coordinateOrigin")
+        #if targetEnvironment(simulator)
+        #error("ARKit is not supported in iOS Simulator. Connect a physical iOS device and select it as your Xcode run destination, or select Generic iOS Device as a build-only destination.")
+        #else
+        let faceGeometry = ARSCNFaceGeometry(device: sceneView.device!)!
+        let material = faceGeometry.firstMaterial!
         
+        material.diffuse.contents = #imageLiteral(resourceName: "wireframeTexture") // Example texture map image.
+        material.lightingModel = .physicallyBased
+        
+        contentNode = SCNNode(geometry: faceGeometry)
         // Add content for eye tracking in iOS 12.
         self.addEyeTransformNodes()
-        
-        // Provide the node to ARKit for keeping in sync with the face anchor.
+        // Create labels for CSV output
+        Output = "face_position, face_orientation, L_eye_orientation, R_eye_orientation"
+        for (key, weight) in anchor.blendShapes {
+            Output += ", " + key
+        }
+        Output += "\n"
+        #endif
         return contentNode
     }
 
@@ -49,6 +62,19 @@ class FaceVisualization: NSObject, VirtualContentController {
         
         rightEyeNode.simdTransform = faceAnchor.rightEyeTransform
         leftEyeNode.simdTransform = faceAnchor.leftEyeTransform
+        let blendShapes = faceAnchor.blendShapes
+        guard let eyeBlinkLeft = blendShapes[.eyeBlinkLeft] as? Float,
+            let eyeBlinkRight = blendShapes[.eyeBlinkRight] as? Float,
+            let jawOpen = blendShapes[.jawOpen] as? Float
+            else { return }
+        eyeLeftNode.scale.z = 1 - eyeBlinkLeft
+        eyeRightNode.scale.z = 1 - eyeBlinkRight
+        jawNode.position.y = originalJawY - jawHeight * jawOpen
+        // TODO: Add in weights manually for face & eye transformation, orientation
+        for (key, weight) in faceAnchor.blendShapes {
+            Output += ", " + weight
+        }
+        Output += "\n"
     }
     
     func addEyeTransformNodes() {
@@ -62,27 +88,8 @@ class FaceVisualization: NSObject, VirtualContentController {
         anchorNode.addChildNode(leftEyeNode)
     }
     
-    func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
-        guard anchor is ARFaceAnchor else { return nil }
+    func exportCSV() {
         
-        contentNode = SCNReferenceNode(named: "robotHead")
-        originalJawY = jawNode.position.y
-        return contentNode
-    }
-    
-    /// - Tag: BlendShapeAnimation
-    func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
-        guard let faceAnchor = anchor as? ARFaceAnchor
-            else { return }
-        
-        let blendShapes = faceAnchor.blendShapes
-        guard let eyeBlinkLeft = blendShapes[.eyeBlinkLeft] as? Float,
-            let eyeBlinkRight = blendShapes[.eyeBlinkRight] as? Float,
-            let jawOpen = blendShapes[.jawOpen] as? Float
-            else { return }
-        eyeLeftNode.scale.z = 1 - eyeBlinkLeft
-        eyeRightNode.scale.z = 1 - eyeBlinkRight
-        jawNode.position.y = originalJawY - jawHeight * jawOpen
     }
 
 }
