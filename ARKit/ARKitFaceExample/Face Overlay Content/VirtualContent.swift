@@ -24,6 +24,7 @@ enum VirtualContentType: Int {
         case .blendShape:
             return BlendShapeCharacter()
         }
+        
     }
 }
 

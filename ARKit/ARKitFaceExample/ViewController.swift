@@ -17,7 +17,8 @@ class ViewController: UIViewController, ARSessionDelegate {
     @IBOutlet weak var tabBar: UITabBar!
 
     // MARK: Properties
-
+    
+    /*
     var contentControllers: [VirtualContentType: VirtualContentController] = [:]
     
     var selectedVirtualContent: VirtualContentType! {
@@ -45,7 +46,7 @@ class ViewController: UIViewController, ARSessionDelegate {
             return controller
         }
     }
-    
+    */
     var currentFaceAnchor: ARFaceAnchor?
     
     // MARK: - View Controller Life Cycle
@@ -53,13 +54,13 @@ class ViewController: UIViewController, ARSessionDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        sceneView.delegate = self
+        sceneView.delegate = UserData() as? ARSCNViewDelegate
         sceneView.session.delegate = self
         sceneView.automaticallyUpdatesLighting = true
         
         // Set the initial face content.
         tabBar.selectedItem = tabBar.items!.first!
-        selectedVirtualContent = VirtualContentType(rawValue: tabBar.selectedItem!.tag)
+      //  selectedVirtualContent = VirtualContentType(rawValue: tabBar.selectedItem!.tag)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -111,12 +112,14 @@ class ViewController: UIViewController, ARSessionDelegate {
         alertController.addAction(restartAction)
         present(alertController, animated: true, completion: nil)
     }
-    
+    /*
     @IBAction func GetData(_ sender: UIButton) {
         UserData().exportData()
-    }
+    }*/
     
 }
+
+/*
 
 extension ViewController: UITabBarDelegate {
     func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
@@ -150,3 +153,4 @@ extension ViewController: ARSCNViewDelegate {
     }
 }
 
+*/
