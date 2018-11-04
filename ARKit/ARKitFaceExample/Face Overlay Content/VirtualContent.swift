@@ -14,21 +14,27 @@ enum VirtualContentType: Int {
     func makeController() -> VirtualContentController {
         switch self {
         case .transforms:
-            return TransformVisualization()
+            //return TransformVisualization()
+            return UserData() as! VirtualContentController
         case .texture:
-            return TexturedFace()
+            //return TexturedFace()
+            return UserData() as! VirtualContentController
         case .geometry:
-            return FaceOcclusionOverlay()
+            //return FaceOcclusionOverlay()
+            return UserData()
         case .videoTexture:
-            return VideoTexturedFace()
+            //return VideoTexturedFace()
+            return UserData()
         case .blendShape:
-            return BlendShapeCharacter()
+            //return BlendShapeCharacter()
+            return UserData()
         }
         
     }
 }
 
 /// For forwarding `ARSCNViewDelegate` messages to the object controlling the currently visible virtual content.
+/*
 protocol VirtualContentController: ARSCNViewDelegate {
     /// The root node for the virtual content.
     var contentNode: SCNNode? { get set }
@@ -37,3 +43,4 @@ protocol VirtualContentController: ARSCNViewDelegate {
     
     func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor)
 }
+*/

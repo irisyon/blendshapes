@@ -10,7 +10,7 @@ import Foundation
 import SceneKit
 import ARKit
 
-class UserData: NSObject {
+class UserData: NSObject, VirtualContentController {
     
     var contentNode: SCNNode?
     var Output = ""
@@ -57,6 +57,8 @@ class UserData: NSObject {
     }
     
     func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
+        print("renderer")
+        
         guard #available(iOS 12.0, *), let faceAnchor = anchor as? ARFaceAnchor
             else { return }
         
@@ -111,5 +113,8 @@ class UserData: NSObject {
         print(path ?? "not found")
         
     }
+   
   
 }
+
+

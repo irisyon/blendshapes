@@ -17,8 +17,8 @@ class ViewController: UIViewController, ARSessionDelegate {
     @IBOutlet weak var tabBar: UITabBar!
 
     // MARK: Properties
-    
     /*
+    
     var contentControllers: [VirtualContentType: VirtualContentController] = [:]
     
     var selectedVirtualContent: VirtualContentType! {
@@ -45,8 +45,10 @@ class ViewController: UIViewController, ARSessionDelegate {
             contentControllers[selectedVirtualContent] = controller
             return controller
         }
-    }
-    */
+    }*/
+    
+    var selectedContentController: VirtualContentController { return UserData() }
+ 
     var currentFaceAnchor: ARFaceAnchor?
     
     // MARK: - View Controller Life Cycle
@@ -54,7 +56,8 @@ class ViewController: UIViewController, ARSessionDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        sceneView.delegate = UserData() as? ARSCNViewDelegate
+        sceneView.delegate = self
+            //UserData() as? ARSCNViewDelegate
         sceneView.session.delegate = self
         sceneView.automaticallyUpdatesLighting = true
         
@@ -112,15 +115,15 @@ class ViewController: UIViewController, ARSessionDelegate {
         alertController.addAction(restartAction)
         present(alertController, animated: true, completion: nil)
     }
-    /*
+    
     @IBAction func GetData(_ sender: UIButton) {
         UserData().exportData()
-    }*/
+    }
     
 }
 
-/*
 
+/*
 extension ViewController: UITabBarDelegate {
     func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         guard let contentType = VirtualContentType(rawValue: item.tag)
@@ -128,7 +131,7 @@ extension ViewController: UITabBarDelegate {
         selectedVirtualContent = contentType
     }
 }
-
+*/
 extension ViewController: ARSCNViewDelegate {
         
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
@@ -153,4 +156,14 @@ extension ViewController: ARSCNViewDelegate {
     }
 }
 
-*/
+
+/// For forwarding `ARSCNViewDelegate` messages to the object controlling the currently visible virtual content.
+protocol VirtualContentController: ARSCNViewDelegate {
+    /// The root node for the virtual content.
+    var contentNode: SCNNode? { get set }
+    
+    func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode?
+    
+    func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor)
+}
+
