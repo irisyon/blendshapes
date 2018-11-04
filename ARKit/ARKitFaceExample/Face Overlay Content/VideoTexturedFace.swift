@@ -17,9 +17,9 @@ class VideoTexturedFace: TexturedFace {
             anchor is ARFaceAnchor
             else { return nil }
         
-//        #if targetEnvironment(simulator)
-//        #error("ARKit is not supported in iOS Simulator. Connect a physical iOS device and select it as your Xcode run destination, or select Generic iOS Device as a build-only destination.")
-//        #else
+        #if targetEnvironment(simulator)
+        #error("ARKit is not supported in iOS Simulator. Connect a physical iOS device and select it as your Xcode run destination, or select Generic iOS Device as a build-only destination.")
+        #else
         // Show video texture as the diffuse material and disable lighting.
         let faceGeometry = ARSCNFaceGeometry(device: sceneView.device!, fillMesh: true)!
         let material = faceGeometry.firstMaterial!
@@ -38,7 +38,7 @@ class VideoTexturedFace: TexturedFace {
         faceGeometry.setValue(SCNMatrix4Invert(transform), forKey: "displayTransform")
 
         contentNode = SCNNode(geometry: faceGeometry)
-//        #endif
+        #endif
         return contentNode
     }
     

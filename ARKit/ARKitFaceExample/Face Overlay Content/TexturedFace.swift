@@ -27,7 +27,7 @@ class TexturedFace: NSObject, VirtualContentController {
         material.lightingModel = .physicallyBased
         
         contentNode = SCNNode(geometry: faceGeometry)
-//        #endif
+        #endif
         return contentNode
     }
     

@@ -11,20 +11,13 @@ import UIKit
 
 class ViewController: UIViewController, ARSessionDelegate {
     
-    var requestRecord = false;
-    
     // MARK: Outlets
 
     @IBOutlet var sceneView: ARSCNView!
     @IBOutlet weak var tabBar: UITabBar!
 
     // MARK: Properties
-    @IBAction func Record(_ sender: UIButton) {
-        // Use bool to toggle current record state
-        requestRecord = !requestRecord
-    }
-    
-    /*
+
     var contentControllers: [VirtualContentType: VirtualContentController] = [:]
     
     var selectedVirtualContent: VirtualContentType! {
@@ -52,7 +45,6 @@ class ViewController: UIViewController, ARSessionDelegate {
             return controller
         }
     }
-    */
     
     var currentFaceAnchor: ARFaceAnchor?
     
@@ -66,8 +58,8 @@ class ViewController: UIViewController, ARSessionDelegate {
         sceneView.automaticallyUpdatesLighting = true
         
         // Set the initial face content.
-//        tabBar.selectedItem = tabBar.items!.first!
-//        selectedVirtualContent = VirtualContentType(rawValue: tabBar.selectedItem!.tag)
+        tabBar.selectedItem = tabBar.items!.first!
+        selectedVirtualContent = VirtualContentType(rawValue: tabBar.selectedItem!.tag)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -119,9 +111,13 @@ class ViewController: UIViewController, ARSessionDelegate {
         alertController.addAction(restartAction)
         present(alertController, animated: true, completion: nil)
     }
+    
+    @IBAction func GetData(_ sender: UIButton) {
+        UserData().exportData()
+    }
+    
 }
 
-/*
 extension ViewController: UITabBarDelegate {
     func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         guard let contentType = VirtualContentType(rawValue: item.tag)
@@ -129,8 +125,7 @@ extension ViewController: UITabBarDelegate {
         selectedVirtualContent = contentType
     }
 }
- */
-/*
+
 extension ViewController: ARSCNViewDelegate {
         
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
@@ -155,4 +150,3 @@ extension ViewController: ARSCNViewDelegate {
     }
 }
 
-*/
