@@ -8,7 +8,7 @@ Displays coordinate axes visualizing the tracked face pose (and eyes in iOS 12).
 import ARKit
 import SceneKit
 
-class FaceVisualization: NSObject, VirtualContentController {
+class FaceVisualization: NSObject {
     
     var contentNode: SCNNode?
     var Output = ""
@@ -32,11 +32,12 @@ class FaceVisualization: NSObject, VirtualContentController {
     /// - Tag: ARTracking
     func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
        guard let sceneView = renderer as? ARSCNView,
+        let faceAnchor = anchor as? ARFaceAnchor,
             anchor is ARFaceAnchor else { return nil }
         
-        #if targetEnvironment(simulator)
-        #error("ARKit is not supported in iOS Simulator. Connect a physical iOS device and select it as your Xcode run destination, or select Generic iOS Device as a build-only destination.")
-        #else
+//        #if targetEnvironment(simulator)
+//        #error("ARKit is not supported in iOS Simulator. Connect a physical iOS device and select it as your Xcode run destination, or select Generic iOS Device as a build-only destination.")
+//        #else
         let faceGeometry = ARSCNFaceGeometry(device: sceneView.device!)!
         let material = faceGeometry.firstMaterial!
         
@@ -48,11 +49,11 @@ class FaceVisualization: NSObject, VirtualContentController {
         self.addEyeTransformNodes()
         // Create labels for CSV output
         Output = "face_position, face_orientation, L_eye_orientation, R_eye_orientation"
-        for (key, weight) in anchor.blendShapes {
-            Output += ", " + key
+        for (key, _) in faceAnchor.blendShapes {
+            Output += ", " + key.rawValue;
         }
         Output += "\n"
-        #endif
+//        #endif
         return contentNode
     }
 
@@ -71,8 +72,8 @@ class FaceVisualization: NSObject, VirtualContentController {
         eyeRightNode.scale.z = 1 - eyeBlinkRight
         jawNode.position.y = originalJawY - jawHeight * jawOpen
         // TODO: Add in weights manually for face & eye transformation, orientation
-        for (key, weight) in faceAnchor.blendShapes {
-            Output += ", " + weight
+        for (_, weight) in faceAnchor.blendShapes {
+            Output += ", " + weight.stringValue
         }
         Output += "\n"
     }

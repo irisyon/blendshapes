@@ -17,9 +17,9 @@ class TexturedFace: NSObject, VirtualContentController {
         guard let sceneView = renderer as? ARSCNView,
             anchor is ARFaceAnchor else { return nil }
         
-        #if targetEnvironment(simulator)
-        #error("ARKit is not supported in iOS Simulator. Connect a physical iOS device and select it as your Xcode run destination, or select Generic iOS Device as a build-only destination.")
-        #else
+//        #if targetEnvironment(simulator)
+//        #error("ARKit is not supported in iOS Simulator. Connect a physical iOS device and select it as your Xcode run destination, or select Generic iOS Device as a build-only destination.")
+//        #else
         let faceGeometry = ARSCNFaceGeometry(device: sceneView.device!)!
         let material = faceGeometry.firstMaterial!
         
@@ -27,7 +27,7 @@ class TexturedFace: NSObject, VirtualContentController {
         material.lightingModel = .physicallyBased
         
         contentNode = SCNNode(geometry: faceGeometry)
-        #endif
+//        #endif
         return contentNode
     }
     

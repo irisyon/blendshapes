@@ -121,6 +121,7 @@ class ViewController: UIViewController, ARSessionDelegate {
     }
 }
 
+/*
 extension ViewController: UITabBarDelegate {
     func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         guard let contentType = VirtualContentType(rawValue: item.tag)
@@ -128,7 +129,8 @@ extension ViewController: UITabBarDelegate {
         selectedVirtualContent = contentType
     }
 }
-
+ */
+/*
 extension ViewController: ARSCNViewDelegate {
         
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
@@ -153,3 +155,4 @@ extension ViewController: ARSCNViewDelegate {
     }
 }
 
+*/
