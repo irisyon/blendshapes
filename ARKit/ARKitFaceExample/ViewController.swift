@@ -14,7 +14,7 @@ class ViewController: UIViewController, ARSessionDelegate {
     // MARK: Outlets
 
     @IBOutlet var sceneView: ARSCNView!
-    @IBOutlet weak var tabBar: UITabBar!
+//    @IBOutlet weak var tabBar: UITabBar!
     
     var requestRecord = false;
     var currentData = UserData()

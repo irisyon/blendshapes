@@ -107,14 +107,7 @@ class UserData: NSObject, VirtualContentController {
         let fileName = "data.csv"
         //let path = NSURL(fileURLWithPath: .documentDirectory).appendingPathComponent(fileName)
         
-        
-        
-        var csvText = ""
-
-        
-        let newLine = Output
-        csvText.append(newLine)
-        //print(Output)
+        var csvText = Output
         
         do {
             let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
