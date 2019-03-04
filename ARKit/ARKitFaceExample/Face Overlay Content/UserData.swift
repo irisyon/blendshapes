@@ -49,11 +49,11 @@ class UserData: NSObject, VirtualContentController {
         // Add content for eye tracking in iOS 12.
         self.addEyeTransformNodes()
         // Create labels for CSV output
-        //        Output = "face_position_x,face_position_y,face_position_z,"
-        //            + "face_orientation_x,face_orientation_y,face_orientation_z,"
-        //            + "L_eye_orientation_x,L_eye_orientation_y,L_eye_orientation_z,"
-        //            + "R_eye_orientation_x,R_eye_orientation_y,R_eye_orientation_z"
-        //        presetKeys = Output.components(separatedBy: ",")
+        Output = "face_position_x,face_position_y,face_position_z,"
+            + "face_orientation_x,face_orientation_y,face_orientation_z,"
+            + "L_eye_orientation_x,L_eye_orientation_y,L_eye_orientation_z,"
+            + "R_eye_orientation_x,R_eye_orientation_y,R_eye_orientation_z"
+        presetKeys = Output.components(separatedBy: ",")
         for (key, _) in faceAnchor.blendShapes {
             Output += "," + key.rawValue
             BlendShapeKeyOrdering.append(key)
@@ -80,7 +80,15 @@ class UserData: NSObject, VirtualContentController {
         //        eyeRightNode.scale.z = 1 - eyeBlinkRight
         //        jawNode.position.y = originalJawY - jawHeight * jawOpen
         // TODO: Add in weights manually for face & eye transformation, orientation
-        var tempOut = ""
+        let facePos = faceAnchor.transform.position
+        let faceAng = faceAnchor.transform.eulerAngles
+        let eyeLAng = faceAnchor.leftEyeTransform.eulerAngles
+        let eyeRAng = faceAnchor.rightEyeTransform.eulerAngles
+        let arTrans = [String(facePos.x), String(facePos.y), String(facePos.z),
+                       String(faceAng.x), String(faceAng.y), String(faceAng.z),
+                       String(eyeLAng.x), String(eyeLAng.y), String(eyeLAng.z),
+                       String(eyeRAng.x), String(eyeRAng.y), String(eyeRAng.z)]
+        var tempOut = arTrans.joined(separator: ",")
         for key in BlendShapeKeyOrdering {
             tempOut += "," + (faceAnchor.blendShapes[key]?.stringValue)!
         }
@@ -102,31 +110,16 @@ class UserData: NSObject, VirtualContentController {
     
   
     
-    func exportData() {
-<<<<<<< HEAD
-        /*
-        let fileName = "data.csv"
-       /* let path = NSURL(fileURLWithPath: .documentDirectory).appendingPathComponent(fileName)*/
-=======
+    func exportData(viewRef: ViewController) {
         
         let fileName = "data.csv"
         //let path = NSURL(fileURLWithPath: .documentDirectory).appendingPathComponent(fileName)
->>>>>>> d2acfaa2409201b39ff01221beb0564d4028282f
         
         var csvText = Output
         
         do {
             let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
             let documentsDirectory = paths[0]
-<<<<<<< HEAD
-            let fileManager = FileManager.default
-            
-            let path = try fileManager.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
-            let fileURL = path.appendingPathComponent(fileName)
-            let documentDirectoryURL =  try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
-
-            try csvText.write(to: fileURL, atomically: true, encoding: .utf8)
-=======
             //let fileManager = FileManager.default
             /*
             let path = try fileManager.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
@@ -134,7 +127,6 @@ class UserData: NSObject, VirtualContentController {
            // let documentDirectoryURL =  try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
 
             try csvText.write(to: fileURL, atomically: true, encoding: .utf8)*/
->>>>>>> d2acfaa2409201b39ff01221beb0564d4028282f
             //try csvText.write(to: path!, atomically: true, encoding: String.Encoding.utf8)
           // print(fileURL)
           /*  var path = try! FileManager.default.url(for: .documentDirectory, in: .UserDomainMask, appropriateFor: nil, create: false)
@@ -145,17 +137,18 @@ class UserData: NSObject, VirtualContentController {
             let documentsURL = FileManager.default.urls(for: .downloadsDirectory, in: .userDomainMask).first!
             let fileURL = documentsURL.appendingPathComponent(fileName)
             try csvText.write(to: fileURL, atomically: true, encoding: .utf8)
+            
+            // initiate export action
+            let exportAct = UIActivityViewController(activityItems: [fileURL], applicationActivities: [])
+            viewRef.present(exportAct, animated: true, completion: nil)
+            
             //print(documentsDirectory)
         } catch {
             print("Failed to create file")
             print("\(error)")
         }
         //print(path ?? "not found")
-<<<<<<< HEAD
-        */
-=======
         
->>>>>>> d2acfaa2409201b39ff01221beb0564d4028282f
     }
    
   

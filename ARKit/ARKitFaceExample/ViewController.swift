@@ -128,7 +128,7 @@ class ViewController: UIViewController, ARSessionDelegate {
     
     @IBAction func GetData(_ sender: UIButton) {
         if (requestRecord) {
-            currentData.exportData()
+            currentData.exportData(self)
         }
         requestRecord = !requestRecord
        

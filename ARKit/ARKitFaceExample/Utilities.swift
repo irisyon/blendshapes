@@ -64,15 +64,16 @@ public extension matrix_float4x4 {
             // get quaternions
             // robust Alternative method, uses sign() function from simd library
             // http://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToQuaternion/index.htm
+            let one: Float = 1.0
             let half: Float = 0.5
             let A = matrix_float4x4(rows: [
-                                    simd_float4(half, half, half, half),
-                                    simd_float4(half, half, -half, -half),
-                                    simd_float4(half, -half, half, -half),
-                                    simd_float4(half, -half, -half, half)])
+                                    simd_float4(one, one, one, one),
+                                    simd_float4(one, one, -one, -one),
+                                    simd_float4(one, -one, one, -one),
+                                    simd_float4(one, -one, -one, one)])
             let x = simd_float4(1.0, columns.0.x, columns.1.y, columns.2.z)
             // initial quaternion multiplication
-            var Q : simd_float4 = _simd_pow_f4(max(x * A, 0.0), simd_float4(half, half, half, half)) / 2.0
+            var Q : simd_float4 = _simd_pow_f4(max(x * A, 0.0), simd_float4(half, half, half, half)) * half
             let getSigns = simd_sign(simd_float4(1,
                                             columns.2.y - columns.1.z,
                                             columns.0.z - columns.2.x,
@@ -96,7 +97,7 @@ public extension matrix_float4x4 {
                 pitch = asin(sinp)
             }
             
-            // yaw (z-axis rot)
+            // get yaw (z-axis rot)
             let yaw = atan2(siny, cosy)
             
             return SCNVector3(pitch, yaw, roll)
