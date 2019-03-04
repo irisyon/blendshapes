@@ -1,0 +1,38 @@
+global proc getAnim(string $fileName, string $objectName)
+{
+ //open the file for reading
+ $fileId=`fopen $fileName "r"`;
+ 
+ //get the first line of text
+ string $nextLine = `fgetline $fileId`;
+ 
+ //while $nextline is not emtpy(end of file) do the following 
+ 
+ while ( size( $nextLine ) > 0 ) {
+ 
+ //tokenize(split) line into separate elements of an array 
+  string $rawAnimArray[];
+ tokenize ($nextLine, " ",$rawAnimArray);
+ //place each element of the array into separate variables 
+ print $rawAnimArray;
+ float $frame=$rawAnimArray[0];
+ float $A=$rawAnimArray[1];
+ float $B=$rawAnimArray[2];
+ float $C=$rawAnimArray[3];
+ 
+ //change the currentTime and set keys for tx, ty, tz
+ currentTime $frame ;
+ setAttr ($objectName+".eyeWide_L") $A;
+ setKeyframe ($objectName+".eyeWide_L");
+ setAttr ($objectName+ ".eyeWide_R") $B;
+ setKeyframe ($objectName+".eyeWide_R");
+ setAttr ($objectName+".eyeBlink_L") $C;
+ setKeyframe ($objectName+".eyeBlink_R");
+ //get the next line in the ascii file. 
+ $nextLine = `fgetline $fileId`;
+ }
+ //close file 
+ fclose $fileId;
+}
+
+getAnim("C:/Users/jakeh/Documents/performance_plugin/blend_weights.txt", "face")
