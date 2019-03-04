@@ -103,22 +103,22 @@ class UserData: NSObject, VirtualContentController {
   
     
     func exportData() {
-        
+        /*
         let fileName = "data.csv"
-        //let path = NSURL(fileURLWithPath: .documentDirectory).appendingPathComponent(fileName)
+       /* let path = NSURL(fileURLWithPath: .documentDirectory).appendingPathComponent(fileName)*/
         
         var csvText = Output
         
         do {
             let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
             let documentsDirectory = paths[0]
-            //let fileManager = FileManager.default
-            /*
+            let fileManager = FileManager.default
+            
             let path = try fileManager.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
             let fileURL = path.appendingPathComponent(fileName)
-           // let documentDirectoryURL =  try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+            let documentDirectoryURL =  try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
 
-            try csvText.write(to: fileURL, atomically: true, encoding: .utf8)*/
+            try csvText.write(to: fileURL, atomically: true, encoding: .utf8)
             //try csvText.write(to: path!, atomically: true, encoding: String.Encoding.utf8)
           // print(fileURL)
           /*  var path = try! FileManager.default.url(for: .documentDirectory, in: .UserDomainMask, appropriateFor: nil, create: false)
@@ -135,7 +135,7 @@ class UserData: NSObject, VirtualContentController {
             print("\(error)")
         }
         //print(path ?? "not found")
-        
+        */
     }
    
   

@@ -1,0 +1,136 @@
+animVersion 1.1;
+mayaVersion 2018;
+timeUnit film;
+linearUnit cm;
+angularUnit deg;
+startTime 11;
+endTime 28;
+anim visibility visibility head_main6 0 9 0;
+animData {
+  input time;
+  output unitless;
+  weighted 0;
+  preInfinity constant;
+  postInfinity constant;
+  keys {
+    11 1 spline step 1 0 0;
+    28 1 spline step 1 0 0;
+  }
+}
+anim translate.translateX translateX head_main6 0 9 1;
+animData {
+  input time;
+  output linear;
+  weighted 0;
+  preInfinity constant;
+  postInfinity constant;
+  keys {
+    11 0 auto auto 1 0 0;
+    28 0 auto auto 1 0 0;
+  }
+}
+anim translate.translateY translateY head_main6 0 9 2;
+animData {
+  input time;
+  output linear;
+  weighted 0;
+  preInfinity constant;
+  postInfinity constant;
+  keys {
+    11 0 auto auto 1 0 0;
+    28 0 auto auto 1 0 0;
+  }
+}
+anim translate.translateZ translateZ head_main6 0 9 3;
+animData {
+  input time;
+  output linear;
+  weighted 0;
+  preInfinity constant;
+  postInfinity constant;
+  keys {
+    11 0 auto auto 1 0 0;
+    28 0 auto auto 1 0 0;
+  }
+}
+anim rotate.rotateX rotateX head_main6 0 9 4;
+animData {
+  input time;
+  output angular;
+  weighted 0;
+  preInfinity constant;
+  postInfinity constant;
+  keys {
+    11 0 auto auto 1 0 0;
+    28 0 auto auto 1 0 0;
+  }
+}
+anim rotate.rotateY rotateY head_main6 0 9 5;
+animData {
+  input time;
+  output angular;
+  weighted 0;
+  preInfinity constant;
+  postInfinity constant;
+  keys {
+    11 0 auto auto 1 0 0;
+    28 0 auto auto 1 0 0;
+  }
+}
+anim rotate.rotateZ rotateZ head_main6 0 9 6;
+animData {
+  input time;
+  output angular;
+  weighted 0;
+  preInfinity constant;
+  postInfinity constant;
+  keys {
+    11 0 auto auto 1 0 0;
+    28 0 auto auto 1 0 0;
+  }
+}
+anim scale.scaleX scaleX head_main6 0 9 7;
+animData {
+  input time;
+  output unitless;
+  weighted 0;
+  preInfinity constant;
+  postInfinity constant;
+  keys {
+    11 1 auto auto 1 0 0;
+    28 1 auto auto 1 0 0;
+  }
+}
+anim scale.scaleY scaleY head_main6 0 9 8;
+animData {
+  input time;
+  output unitless;
+  weighted 0;
+  preInfinity constant;
+  postInfinity constant;
+  keys {
+    11 1 auto auto 1 0 0;
+    28 1 auto auto 1 0 0;
+  }
+}
+anim scale.scaleZ scaleZ head_main6 0 9 9;
+animData {
+  input time;
+  output unitless;
+  weighted 0;
+  preInfinity constant;
+  postInfinity constant;
+  keys {
+    11 1 auto auto 1 0 0;
+    28 1 auto auto 1 0 0;
+  }
+}
+anim head_main6Shape 1 0 0;
+anim head_main6Shape795Orig 1 0 0;
+anim head_main6Shape756Orig 1 0 0;
+anim head_main6ShapeOrig 1 0 0;
+anim head_main6ShapeOrig1 1 0 0;
+anim head_main6ShapeOrig2 1 0 0;
+anim head_main6ShapeOrig3 1 0 0;
+anim head_main6ShapeOrig4 1 0 0;
+anim head_main6ShapeOrig6 1 0 0;
